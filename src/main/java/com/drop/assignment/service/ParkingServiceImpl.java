@@ -1,6 +1,7 @@
 package com.drop.assignment.service;
 
 import com.drop.assignment.exception.CarIsAlreadyParkedException;
+import com.drop.assignment.exception.CarIsNotParkedInParkingLotException;
 import com.drop.assignment.exception.InvalidSlotIdException;
 import com.drop.assignment.exception.ParkingSlotUnAvailableException;
 import com.drop.assignment.model.ParkingSlot;
@@ -24,7 +25,7 @@ public class ParkingServiceImpl implements ParkingService{
     private ParkingSlotRepository parkingSlotRepository;
 
     /**
-     * park method used to check available slot and assign that slot to requested car
+     * This method used to arrange available slot and park car based on car number
      *
      * @param carNumber
      * @return
@@ -49,7 +50,7 @@ public class ParkingServiceImpl implements ParkingService{
     }
 
     /**
-     *
+     * this method used get slot information based on slot id
      * @param slotId
      * @return
      */
@@ -63,8 +64,20 @@ public class ParkingServiceImpl implements ParkingService{
         throw new InvalidSlotIdException();
     }
 
+    /**
+     * This method used to unPark car based on car number
+     * @param carNumber
+     * @return ParkingSlot
+     */
     @Override
-    public ParkingSlot unpark(String vehicleNumber) {
-        return null;
+    public ParkingSlot unPark(String carNumber) {
+        ParkingSlot parkedVehicle =  parkingSlotRepository.findByCarNumber(carNumber);
+        if(parkedVehicle == null){
+            throw new CarIsNotParkedInParkingLotException();
+        }
+        parkedVehicle.setAvailable(true);
+        parkedVehicle.setCarNumber(null);
+        parkingSlotRepository.save(parkedVehicle);
+        return parkingSlotRepository.save(parkedVehicle);
     }
 }

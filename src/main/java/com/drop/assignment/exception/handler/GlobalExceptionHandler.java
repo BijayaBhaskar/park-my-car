@@ -1,6 +1,7 @@
 package com.drop.assignment.exception.handler;
 
 import com.drop.assignment.exception.CarIsAlreadyParkedException;
+import com.drop.assignment.exception.CarIsNotParkedInParkingLotException;
 import com.drop.assignment.exception.InvalidSlotIdException;
 import com.drop.assignment.exception.ParkingSlotUnAvailableException;
 import com.drop.assignment.util.ApplicationConstants;
@@ -18,7 +19,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingSlotUnAvailableException.class)
     public ResponseEntity<String> handleParkingSlotUnAvailableException(){
-        return new ResponseEntity<>(ApplicationConstants.PARKING_NOT_AVAILABLE, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ApplicationConstants.PARKING_LOT_IS_FULL, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CarIsAlreadyParkedException.class)
@@ -29,5 +30,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidSlotIdException.class)
     public ResponseEntity<String> handleInvalidSlotIdException(){
         return new ResponseEntity<>(ApplicationConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CarIsNotParkedInParkingLotException.class)
+    public ResponseEntity<String> handleCarIsNotParkedInParkingLotException(){
+        return new ResponseEntity<>(ApplicationConstants.CAR_IS_NOT_AVAILABLE_IN_PARKING_LOT, HttpStatus.NOT_FOUND);
     }
 }

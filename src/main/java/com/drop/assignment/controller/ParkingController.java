@@ -60,15 +60,15 @@ public class ParkingController {
     // TODO -- implementation
     @GetMapping("/unpark/{carNumber}")
     public ResponseEntity<ParkingSlot> unpark(@PathVariable("carNumber") String carNumber){
-        ParkingSlot parkingSlot = parkingService.unpark(carNumber);
+        ParkingSlot parkingSlot = parkingService.unPark(carNumber);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 
     /**
-     * get All parking slot information
+     * get all parking slot information
      * @return List<ParkingSlot>
      */
-    @GetMapping("/parking-slots")
+    @GetMapping("/all-slots")
     public List<ParkingSlot> parkingSlots(){
         return parkingSlotRepository.findAll();
     }
