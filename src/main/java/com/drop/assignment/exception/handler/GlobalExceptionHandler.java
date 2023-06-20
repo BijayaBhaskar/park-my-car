@@ -1,5 +1,8 @@
-package com.drop.assignment.exception;
+package com.drop.assignment.exception.handler;
 
+import com.drop.assignment.exception.CarIsAlreadyParkedException;
+import com.drop.assignment.exception.InvalidSlotIdException;
+import com.drop.assignment.exception.ParkingSlotUnAvailableException;
 import com.drop.assignment.util.ApplicationConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CarIsAlreadyParkedException.class)
     public ResponseEntity<String> handleCarIsAlreadyParkedException(){
-        return new ResponseEntity<>(ApplicationConstants.CAR_IS_ALREADY_PARKED, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ApplicationConstants.CAR_IS_ALREADY_PARKED, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidSlotIdException.class)
+    public ResponseEntity<String> handleInvalidSlotIdException(){
+        return new ResponseEntity<>(ApplicationConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 }

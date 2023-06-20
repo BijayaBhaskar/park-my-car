@@ -9,7 +9,7 @@ import com.drop.assignment.model.ParkingSlot;
 public interface ParkingService {
 
     public ParkingSlot park(String vehicleNumber);
-    public ParkingSlot slot(long id);
+    public ParkingSlot getSlotInfo(long slotId);
     public ParkingSlot unpark(String vehicleNumber);
 
 }

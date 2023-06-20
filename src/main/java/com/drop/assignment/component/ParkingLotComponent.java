@@ -2,6 +2,7 @@ package com.drop.assignment.component;
 
 import com.drop.assignment.model.ParkingSlot;
 import com.drop.assignment.repository.ParkingSlotRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author Bijaya Bhaskar Swain
  */
 @Component
+@Slf4j
 public class ParkingLotComponent {
 
     @Value("${parking.size}")
@@ -34,6 +36,6 @@ public class ParkingLotComponent {
         for (int i = 1; i <= numberOfSlots; i++) {
             parkingSlotRepository.save(new ParkingSlot());
         }
-        System.out.printf("Created a parking lot with %s slots %n", numberOfSlots);
+        log.info("Created a parking lot with {} slots", numberOfSlots);
     }
 }

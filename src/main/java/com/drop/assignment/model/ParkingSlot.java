@@ -18,4 +18,5 @@ public class ParkingSlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long slotId;
     private String carNumber;
+    private boolean isAvailable = true;
 }

@@ -4,6 +4,7 @@ import com.drop.assignment.model.ParkingSlot;
 import com.drop.assignment.repository.ParkingSlotRepository;
 import com.drop.assignment.service.ParkingService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
  *
  */
 @RestController
+@Slf4j
 public class ParkingController {
 
     @Autowired
@@ -37,11 +39,12 @@ public class ParkingController {
             response = ParkingSlot.class)
     @GetMapping("/park/{carNumber}")
     public ResponseEntity<ParkingSlot>  park(@PathVariable("carNumber") String carNumber){
+        log.info("Request to park car with number : {}", carNumber);
         ParkingSlot parkingSlot = parkingService.park(carNumber);
+        log.info("Car with number {} parked at slot id : {}", carNumber, parkingSlot.getSlotId());
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 
-    // TODO -- implementation
     /**
      * this method used return parking slot information based on slotId
      * @param slotId
@@ -49,7 +52,9 @@ public class ParkingController {
      */
     @GetMapping("/slot/{slotId}")
     public ResponseEntity<ParkingSlot> slot(@PathVariable("slotId") long slotId){
-        ParkingSlot parkingSlot = parkingService.slot(slotId);
+        log.info("Request to get info on slot Id : {}", slotId);
+        ParkingSlot parkingSlot = parkingService.getSlotInfo(slotId);
+        log.info("Parking slot information  : {}", parkingSlot);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
     // TODO -- implementation
@@ -59,6 +64,10 @@ public class ParkingController {
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 
+    /**
+     * get All parking slot information
+     * @return List<ParkingSlot>
+     */
     @GetMapping("/parking-slots")
     public List<ParkingSlot> parkingSlots(){
         return parkingSlotRepository.findAll();
