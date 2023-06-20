@@ -30,14 +30,14 @@ public class ParkingController {
     //TODO -- implementation
     /**
      * this method used for park vehicle
-     * @param vehicleNumber
+     * @param carNumber
      * @return ResponseEntity<ParkingSlot>
      */
     @ApiOperation(value = "park car in parking lot",
             response = ParkingSlot.class)
-    @GetMapping("/park/{vehicleNumber}")
-    public ResponseEntity<ParkingSlot>  park(@PathVariable("vehicleNumber") String vehicleNumber){
-        ParkingSlot parkingSlot = parkingService.park(vehicleNumber);
+    @GetMapping("/park/{carNumber}")
+    public ResponseEntity<ParkingSlot>  park(@PathVariable("carNumber") String carNumber){
+        ParkingSlot parkingSlot = parkingService.park(carNumber);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 
@@ -53,9 +53,9 @@ public class ParkingController {
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
     // TODO -- implementation
-    @GetMapping("/unpark/{vehicleNumber}")
-    public ResponseEntity<ParkingSlot> unpark(@PathVariable("vehicleNumber") String vehicleNumber){
-        ParkingSlot parkingSlot = parkingService.unpark(vehicleNumber);
+    @GetMapping("/unpark/{carNumber}")
+    public ResponseEntity<ParkingSlot> unpark(@PathVariable("carNumber") String carNumber){
+        ParkingSlot parkingSlot = parkingService.unpark(carNumber);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 

@@ -17,8 +17,5 @@ public class ParkingSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long slotId;
-
-    private String vehicleNumber;
-
-    private boolean isEmpty;
+    private String carNumber;
 }

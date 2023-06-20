@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingSlotUnAvailableException.class)
-    public ResponseEntity<String> handle(){
+    public ResponseEntity<String> handleParkingSlotUnAvailableException(){
         return new ResponseEntity<>(ApplicationConstants.PARKING_NOT_AVAILABLE, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CarIsAlreadyParkedException.class)
+    public ResponseEntity<String> handleCarIsAlreadyParkedException(){
+        return new ResponseEntity<>(ApplicationConstants.CAR_IS_ALREADY_PARKED, HttpStatus.NOT_FOUND);
     }
 }
