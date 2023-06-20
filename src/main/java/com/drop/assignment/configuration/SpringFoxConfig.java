@@ -8,12 +8,16 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Configuration class for swagger
+ * @author Bijaya Bhaskar Swain
+ */
 @Configuration
 @EnableSwagger2
 public class SpringFoxConfig {
     @Bean
     public Docket postsApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("public-api")
+        return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select().build();
     }
 

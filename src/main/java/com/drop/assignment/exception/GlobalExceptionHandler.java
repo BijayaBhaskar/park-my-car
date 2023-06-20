@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * class for globalExceptionHandler
+ * @author Bijaya Bhaskar Swain
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
