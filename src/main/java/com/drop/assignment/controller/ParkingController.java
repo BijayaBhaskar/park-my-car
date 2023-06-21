@@ -53,14 +53,14 @@ public class ParkingController {
     @GetMapping("/slot/{slotId}")
     public ResponseEntity<ParkingSlot> slot(@PathVariable("slotId") long slotId){
         log.info("Request to get info on slot Id : {}", slotId);
-        ParkingSlot parkingSlot = parkingService.getSlotInfo(slotId);
+        ParkingSlot parkingSlot = parkingService.slot(slotId);
         log.info("Parking slot information  : {}", parkingSlot);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
     // TODO -- implementation
     @GetMapping("/unpark/{carNumber}")
     public ResponseEntity<ParkingSlot> unpark(@PathVariable("carNumber") String carNumber){
-        ParkingSlot parkingSlot = parkingService.unPark(carNumber);
+        ParkingSlot parkingSlot = parkingService.unpark(carNumber);
         return new ResponseEntity<>(parkingSlot, HttpStatus.OK);
     }
 

@@ -41,7 +41,7 @@ public class ParkingServiceImpl implements ParkingService{
         }
         ParkingSlot parkingSlot = parkingSlotRepository.findFirstByCarNumberIsNull();
         if(parkingSlot == null){
-            log.error("Parking lot is not available");
+            log.error("Parking slot is not available");
             throw new ParkingSlotUnAvailableException();
         }
         parkingSlot.setAvailable(false);
@@ -55,7 +55,7 @@ public class ParkingServiceImpl implements ParkingService{
      * @return
      */
     @Override
-    public ParkingSlot getSlotInfo(long slotId) {
+    public ParkingSlot slot(long slotId) {
         Optional<ParkingSlot> parkingSlot = parkingSlotRepository.findById(slotId);
         if(parkingSlot.isPresent()){
             return parkingSlot.get();
@@ -70,14 +70,13 @@ public class ParkingServiceImpl implements ParkingService{
      * @return ParkingSlot
      */
     @Override
-    public ParkingSlot unPark(String carNumber) {
-        ParkingSlot parkedVehicle =  parkingSlotRepository.findByCarNumber(carNumber);
-        if(parkedVehicle == null){
+    public ParkingSlot unpark(String carNumber) {
+        ParkingSlot parkingSlot =  parkingSlotRepository.findByCarNumber(carNumber);
+        if(parkingSlot == null){
             throw new CarIsNotParkedInParkingLotException();
         }
-        parkedVehicle.setAvailable(true);
-        parkedVehicle.setCarNumber(null);
-        parkingSlotRepository.save(parkedVehicle);
-        return parkingSlotRepository.save(parkedVehicle);
+        parkingSlot.setAvailable(true);
+        parkingSlot.setCarNumber(null);
+        return parkingSlotRepository.save(parkingSlot);
     }
 }
