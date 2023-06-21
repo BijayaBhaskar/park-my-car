@@ -61,7 +61,7 @@ username : {clientId} <br />
 password : {clientSecret}
 
 ###### Request Body :
-![img.png](img.png)
+![alt body](https://github.com/BijayaBhaskar/park-my-car/blob/master/img.png?raw=true)
 
 Use this Bearer token to access secured api endpoints.
 
