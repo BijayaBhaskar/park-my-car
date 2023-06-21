@@ -1,6 +1,7 @@
 package com.drop.assignment.controller;
 
-import com.drop.assignment.dto.Response;
+import com.drop.assignment.dto.ParkingLotRequestDTO;
+import com.drop.assignment.dto.ParkingLotResponseDTO;
 import com.drop.assignment.exception.CarIsAlreadyParkedException;
 import com.drop.assignment.exception.CarIsNotParkedInParkingLotException;
 import com.drop.assignment.exception.InvalidSlotIdException;
@@ -36,9 +37,10 @@ public class ParkingControllerTest {
     @Test
     @DisplayName("Controller test car parked successfully")
     public void parkedSuccessfully() {
+
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.park(Mockito.anyString())).thenReturn(getParkingSlot());
-        ResponseEntity<Response> responseEntity = parkingController.park("ABC");
+        ResponseEntity<ParkingLotResponseDTO> responseEntity = parkingController.park(getParkingLotRequestDTO());
 
         Assertions.assertNotNull(responseEntity.getBody());
         Assertions.assertEquals("ABC", responseEntity.getBody().getParkingSlot().getCarNumber());
@@ -51,7 +53,7 @@ public class ParkingControllerTest {
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.park(Mockito.anyString())).thenThrow(CarIsAlreadyParkedException.class);
         Assertions.assertThrows(CarIsAlreadyParkedException.class,
-                ()-> parkingController.park("ABC"));
+                ()-> parkingController.park(getParkingLotRequestDTO()));
     }
 
     @Test
@@ -60,7 +62,7 @@ public class ParkingControllerTest {
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.park(Mockito.anyString())).thenThrow(ParkingSlotUnAvailableException.class);
         Assertions.assertThrows(ParkingSlotUnAvailableException.class,
-                ()-> parkingController.park("ABC"));
+                ()-> parkingController.park(getParkingLotRequestDTO()));
     }
 
     @Test
@@ -68,7 +70,7 @@ public class ParkingControllerTest {
     public void slotBySlotId() {
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.slot(Mockito.anyLong())).thenReturn(getParkingSlot());
-        ResponseEntity<Response> responseEntity = parkingController.slot(1);
+        ResponseEntity<ParkingLotResponseDTO> responseEntity = parkingController.slot(1);
         Assertions.assertNotNull(responseEntity.getBody());
         Assertions.assertEquals(1, responseEntity.getBody().getParkingSlot().getSlotId());
     }
@@ -87,7 +89,7 @@ public class ParkingControllerTest {
     public void unParkedSuccessfully() {
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.unpark(Mockito.anyString())).thenReturn(getUnParkingSlot());
-        ResponseEntity<Response> responseEntity = parkingController.unpark("ABC");
+        ResponseEntity<ParkingLotResponseDTO> responseEntity = parkingController.unpark(getParkingLotRequestDTO());
         Assertions.assertNotNull(responseEntity.getBody());
         Assertions.assertNull(responseEntity.getBody().getParkingSlot().getCarNumber());
         Assertions.assertTrue(responseEntity.getBody().getParkingSlot().isAvailable());
@@ -99,7 +101,7 @@ public class ParkingControllerTest {
         Mockito.when(bucket.tryConsume(1)).thenReturn(true);
         Mockito.when(parkingService.unpark(Mockito.anyString())).thenThrow(CarIsNotParkedInParkingLotException.class);
         Assertions.assertThrows(CarIsNotParkedInParkingLotException.class,
-                ()-> parkingController.unpark("ABC"));
+                ()-> parkingController.unpark(getParkingLotRequestDTO()));
     }
 
     private ParkingSlot getParkingSlot(){
@@ -118,5 +120,11 @@ public class ParkingControllerTest {
         parkingSlot.setAvailable(true);
 
         return parkingSlot;
+    }
+
+    private ParkingLotRequestDTO getParkingLotRequestDTO(){
+        ParkingLotRequestDTO parkingLotRequestDTO = new ParkingLotRequestDTO();
+        parkingLotRequestDTO.setCarNumber("ABC");
+        return parkingLotRequestDTO;
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 public class ParkingLotComponent {
 
     @Value("${parking.size}")
-    private int numberOfSlots;
+    private int parkingSize;
 
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
@@ -33,9 +33,9 @@ public class ParkingLotComponent {
     @EventListener
     public void createParkingSlot(ApplicationReadyEvent event) {
         List<ParkingSlot> slots = new ArrayList<>();
-        for (int i = 1; i <= numberOfSlots; i++) {
+        for (int i = 1; i <= parkingSize; i++) {
             parkingSlotRepository.save(new ParkingSlot());
         }
-        log.info("Created a parking lot with {} slots", numberOfSlots);
+        log.info("Created a parking lot with {} slots", parkingSize);
     }
 }

@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> {
     ParkingSlot findByCarNumber(String vehicleNumber);
-    ParkingSlot findFirstByCarNumberIsNull();
+    ParkingSlot findFirstByIsAvailableTrue();
 
 }

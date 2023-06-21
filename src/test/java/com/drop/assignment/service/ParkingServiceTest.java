@@ -33,7 +33,7 @@ public class ParkingServiceTest {
     @DisplayName("Test car parked successfully")
     public void parkedSuccessfully() {
         Mockito.when(parkingSlotRepository.findByCarNumber(Mockito.anyString())).thenReturn(null);
-        Mockito.when(parkingSlotRepository.findFirstByCarNumberIsNull()).thenReturn(getAvailableParkingSlot());
+        Mockito.when(parkingSlotRepository.findFirstByIsAvailableTrue()).thenReturn(getAvailableParkingSlot());
         Mockito.when(parkingSlotRepository.save(Mockito.any())).thenReturn(getParkingSlot());
         ParkingSlot parkingSlot = parkingService.park("ABC");
         Assertions.assertNotNull(parkingSlot);
@@ -53,7 +53,7 @@ public class ParkingServiceTest {
     @DisplayName("Test park method should throw ParkingSlotUnAvailableException when parking slot is not available")
     public void parkMethodShouldThrowParkingSlotUnAvailableException() {
         Mockito.when(parkingSlotRepository.findByCarNumber(Mockito.anyString())).thenReturn(null);
-        Mockito.when(parkingSlotRepository.findFirstByCarNumberIsNull()).thenReturn(null);
+        Mockito.when(parkingSlotRepository.findFirstByIsAvailableTrue()).thenReturn(null);
         Assertions.assertThrows(ParkingSlotUnAvailableException.class,
                 ()-> parkingService.park("ABC"));
     }

@@ -7,8 +7,10 @@ import com.drop.assignment.exception.ParkingSlotUnAvailableException;
 import com.drop.assignment.util.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 
 /**
  * class for globalExceptionHandler
@@ -19,21 +21,26 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingSlotUnAvailableException.class)
     public ResponseEntity<String> handleParkingSlotUnAvailableException(){
-        return new ResponseEntity<>(AppConstants.PARKING_LOT_IS_FULL, HttpStatus.OK);
+        return new ResponseEntity<>(AppConstants.PARKING_LOT_IS_FULL, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CarIsAlreadyParkedException.class)
     public ResponseEntity<String> handleCarIsAlreadyParkedException(){
-        return new ResponseEntity<>(AppConstants.CAR_IS_ALREADY_PARKED, HttpStatus.OK);
+        return new ResponseEntity<>(AppConstants.CAR_IS_ALREADY_PARKED, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidSlotIdException.class)
     public ResponseEntity<String> handleInvalidSlotIdException(){
-        return new ResponseEntity<>(AppConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.OK);
+        return new ResponseEntity<>(AppConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CarIsNotParkedInParkingLotException.class)
     public ResponseEntity<String> handleCarIsNotParkedInParkingLotException(){
-        return new ResponseEntity<>(AppConstants.CAR_IS_NOT_AVAILABLE_IN_PARKING_LOT, HttpStatus.OK);
+        return new ResponseEntity<>(AppConstants.CAR_IS_NOT_AVAILABLE_IN_PARKING_LOT, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex) {
+        return new ResponseEntity<>(ex.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
     }
 }

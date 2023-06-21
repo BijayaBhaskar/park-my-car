@@ -52,18 +52,9 @@ mvn spring-boot:run
 
 
 #### Create Auth Token
-
-###### POST URL :
-https://{your_okta_id}.okta.com/oauth2/default/v1/token
-###### Authorization :
-Basic Auth : <br />
-username : {clientId} <br />
-password : {clientSecret}
-
-###### Request Body :
-![alt body](https://github.com/BijayaBhaskar/park-my-car/blob/master/img.png?raw=true)
-
+```shell
+curl -X POST "https://dev-36747481.okta.com/oauth2/default/v1/token" -H "Content-Type: application/x-www-form-urlencoded" -H "Authorization: Basic MG9hYTI4cWs1d2wzeXhnbUg1ZDc6VmdwNldWTGJ5aWpLZFlwaWtScDJrX2xxLTAxeE9mUWUzNlJmcFViYQ==" --data-urlencode "grant_type=client_credentials" --data-urlencode "scope=parkmycarscope"
+```
 Use this Bearer token to access secured api endpoints.
-
 ###### Swagger URL :
 http://localhost:8090/swagger-ui.html
