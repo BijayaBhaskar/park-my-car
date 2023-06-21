@@ -4,13 +4,13 @@ import com.drop.assignment.model.ParkingSlot;
 import lombok.Data;
 
 @Data
-public class ResponseDto {
+public class Response {
     private String message;
     private ParkingSlot parkingSlot;
-    public ResponseDto(String message){
+    public Response(String message){
         this.message = message;
     }
-    public ResponseDto(String message, ParkingSlot parkingSlot){
+    public Response(String message, ParkingSlot parkingSlot){
         this.message = message;
         this.parkingSlot = parkingSlot;
     }

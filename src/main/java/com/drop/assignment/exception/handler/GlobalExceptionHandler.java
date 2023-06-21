@@ -19,21 +19,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingSlotUnAvailableException.class)
     public ResponseEntity<String> handleParkingSlotUnAvailableException(){
-        return new ResponseEntity<>(AppConstants.PARKING_LOT_IS_FULL, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(AppConstants.PARKING_LOT_IS_FULL, HttpStatus.OK);
     }
 
     @ExceptionHandler(CarIsAlreadyParkedException.class)
     public ResponseEntity<String> handleCarIsAlreadyParkedException(){
-        return new ResponseEntity<>(AppConstants.CAR_IS_ALREADY_PARKED, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(AppConstants.CAR_IS_ALREADY_PARKED, HttpStatus.OK);
     }
 
     @ExceptionHandler(InvalidSlotIdException.class)
     public ResponseEntity<String> handleInvalidSlotIdException(){
-        return new ResponseEntity<>(AppConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(AppConstants.SLOT_ID_IS_NOT_FOUND, HttpStatus.OK);
     }
 
     @ExceptionHandler(CarIsNotParkedInParkingLotException.class)
     public ResponseEntity<String> handleCarIsNotParkedInParkingLotException(){
-        return new ResponseEntity<>(AppConstants.CAR_IS_NOT_AVAILABLE_IN_PARKING_LOT, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(AppConstants.CAR_IS_NOT_AVAILABLE_IN_PARKING_LOT, HttpStatus.OK);
     }
 }

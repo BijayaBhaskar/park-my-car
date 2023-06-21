@@ -7,6 +7,18 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
 # Parking lot size
 parking:
   size: 5
+
+# rate limiter bucket size
+bucket:
+  size: 50
+
+# Okta Configuration
+okta:
+  oauth2:
+    issuer: https://dev-36747481.okta.com/oauth2/default
+    clientId: 0oaa28qk5wl3yxgmH5d7
+    clientSecret: Vgp6WVLbyijKdYpikRp2k_lq-01xOfQe36RfpUba
