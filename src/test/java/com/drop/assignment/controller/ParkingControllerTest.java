@@ -1,5 +1,6 @@
 package com.drop.assignment.controller;
 
+import com.drop.assignment.dto.ResponseDto;
 import com.drop.assignment.exception.CarIsAlreadyParkedException;
 import com.drop.assignment.exception.CarIsNotParkedInParkingLotException;
 import com.drop.assignment.exception.InvalidSlotIdException;
@@ -38,11 +39,11 @@ public class ParkingControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         Mockito.when(parkingService.park(Mockito.anyString())).thenReturn(getParkingSlot());
-        ResponseEntity<ParkingSlot> responseEntity = parkingController.park("ABC");
+        ResponseEntity<ResponseDto> responseEntity = parkingController.park("ABC");
 
         Assertions.assertNotNull(responseEntity.getBody());
-        Assertions.assertEquals("ABC", responseEntity.getBody().getCarNumber());
-        Assertions.assertFalse(responseEntity.getBody().isAvailable());
+        Assertions.assertEquals("ABC", responseEntity.getBody().getParkingSlot().getCarNumber());
+        Assertions.assertFalse(responseEntity.getBody().getParkingSlot().isAvailable());
     }
 
     @Test
@@ -65,9 +66,9 @@ public class ParkingControllerTest {
     @DisplayName("Test controller get slot based on slot id")
     public void slotBySlotId() {
         Mockito.when(parkingService.slot(Mockito.anyLong())).thenReturn(getParkingSlot());
-        ResponseEntity<ParkingSlot> responseEntity = parkingController.slot(1);
+        ResponseEntity<ResponseDto> responseEntity = parkingController.slot(1);
         Assertions.assertNotNull(responseEntity.getBody());
-        Assertions.assertEquals(1, responseEntity.getBody().getSlotId());
+        Assertions.assertEquals(1, responseEntity.getBody().getParkingSlot().getSlotId());
     }
 
     @Test
@@ -82,10 +83,10 @@ public class ParkingControllerTest {
     @DisplayName("Test controller car un parked successfully")
     public void unParkedSuccessfully() {
         Mockito.when(parkingService.unpark(Mockito.anyString())).thenReturn(getUnParkingSlot());
-        ResponseEntity<ParkingSlot> responseEntity = parkingController.unpark("ABC");
+        ResponseEntity<ResponseDto> responseEntity = parkingController.unpark("ABC");
         Assertions.assertNotNull(responseEntity.getBody());
-        Assertions.assertNull(responseEntity.getBody().getCarNumber());
-        Assertions.assertTrue(responseEntity.getBody().isAvailable());
+        Assertions.assertNull(responseEntity.getBody().getParkingSlot().getCarNumber());
+        Assertions.assertTrue(responseEntity.getBody().getParkingSlot().isAvailable());
     }
 
     @Test
